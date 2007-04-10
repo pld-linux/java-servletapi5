@@ -21,13 +21,14 @@ BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
-This subproject contains the source code for the implementation
-classes of the Java Servlet and JSP APIs (packages javax.servlet).
+This subproject contains the compiled code for the implementation
+classes of the Java Servlet and JSP APIs (packages javax.servlet,
+javax.servlet.http, javax.servlet.jsp, and javax.servlet.jsp.tagext).
 
 %package javadoc
 Summary:	servletapi documentation
 Summary(pl):	Dokumentacja do servletapi
-Group:		Development/Languages/Java
+Group:		Documentation
 Requires:	jpackage-utils
 
 %description javadoc
