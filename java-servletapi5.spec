@@ -1,13 +1,14 @@
 %include	/usr/lib/rpm/macros.java
 Summary:	Java servlet and JSP implementation classes
+Summary(pl.UTF-8):	Klasy z implementacją Java Servlet i JSP
 Name:		jakarta-servletapi5
 Version:	5.5.23
 Release:	1
 License:	Apache
 Group:		Development/Languages/Java
 Source0:	http://www.apache.org/dist/tomcat/tomcat-5/v%{version}/src/apache-tomcat-%{version}-src.tar.gz
-# Source0-md5:	cbf88ed51ee2be5a6ce3bace9d8bdb62
-URL:		http://jakarta.apache.org/tomcat
+# Source0-md5:	362d1d8b15dc09882440dcab8c592dd7
+URL:		http://tomcat.apache.org/
 BuildRequires:	ant
 BuildRequires:	jpackage-utils
 BuildRequires:	rpmbuild(macros) >= 1.300
@@ -25,16 +26,21 @@ This subproject contains the compiled code for the implementation
 classes of the Java Servlet and JSP APIs (packages javax.servlet,
 javax.servlet.http, javax.servlet.jsp, and javax.servlet.jsp.tagext).
 
+%description -l pl.UTF-8
+Ten podprojekt zawiera skompilowany kod implementacji klas API Java
+Servlet i JSP (pakiety javax.servlet, javax.servlet.http,
+javax.servlet.jsp i java.servlet.jsp.tagext).
+
 %package javadoc
 Summary:	servletapi documentation
-Summary(pl):	Dokumentacja do servletapi
+Summary(pl.UTF-8):	Dokumentacja do servletapi
 Group:		Documentation
 Requires:	jpackage-utils
 
 %description javadoc
 servletapi documentation.
 
-%description javadoc -l pl
+%description javadoc -l pl.UTF-8
 Dokumentacja do servletapi.
 
 %prep
