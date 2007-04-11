@@ -13,6 +13,7 @@ BuildRequires:	ant
 BuildRequires:	jpackage-utils
 BuildRequires:	rpmbuild(macros) >= 1.300
 BuildRequires:	rpm-javaprov
+BuildRequires:	jdk >= 1.5
 Provides:	jsp
 Provides:	servlet
 Provides:	servlet24
