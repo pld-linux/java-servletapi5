@@ -8,7 +8,7 @@ License:	Apache
 Group:		Development/Languages/Java
 Source0:	http://www.apache.org/dist/tomcat/tomcat-5/v%{version}/src/apache-tomcat-%{version}-src.tar.gz
 # Source0-md5:	362d1d8b15dc09882440dcab8c592dd7
-Patch0:	%{name}-target.patch
+Patch0:		%{name}-target.patch
 URL:		http://tomcat.apache.org/
 BuildRequires:	ant
 BuildRequires:	jdk >= 1.5
