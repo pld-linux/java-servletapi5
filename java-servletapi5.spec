@@ -21,6 +21,7 @@ Provides:	servlet
 Provides:	servlet24
 Provides:	servlet5
 Provides:	servletapi5
+Obsoletes:	jakarta-servletapi < 4
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -66,8 +67,14 @@ cd ../jsr152
 rm -rf $RPM_BUILD_ROOT
 cd apache-tomcat-%{version}-src/servletapi
 install -d $RPM_BUILD_ROOT{%{_javadir},%{_javadocdir}/%{name}-%{version}}
+# JSP 2.0 and Servlet 2.4 classes
 install jsr152/dist/lib/jsp-api.jar $RPM_BUILD_ROOT%{_javadir}/jsp-api-%{version}.jar
 install jsr154/dist/lib/servlet-api.jar $RPM_BUILD_ROOT%{_javadir}/servlet-api-%{version}.jar
+ln -sf servlet-api-%{version}.jar $RPM_BUILD_ROOT%{_javadir}/servlet-api.jar
+ln -sf jsp-api-%{version}.jar $RPM_BUILD_ROOT%{_javadir}/jsp-api.jar
+
+# not sure who expects what from which class
+# servletapi4 contained both servlet-api and jsp-api classes in it's jar
 ln -sf servlet-api-%{version}.jar $RPM_BUILD_ROOT%{_javadir}/servlet.jar
 ln -sf servlet-api-%{version}.jar $RPM_BUILD_ROOT%{_javadir}/servletapi5.jar
 
