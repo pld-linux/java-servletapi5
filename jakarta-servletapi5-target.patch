@@ -1,0 +1,77 @@
+--- apache-tomcat-5.5.23-src/servletapi/jsr152/build.xml~	2007-03-05 17:27:59.000000000 +0200
++++ apache-tomcat-5.5.23-src/servletapi/jsr152/build.xml	2007-12-07 21:46:47.837358940 +0200
+@@ -3,6 +3,9 @@
+ 
+   <!-- =================== Environmental Properties ======================= -->
+ 
++  <property name="compile.source" value="1.3"/>
++  <property name="compile.target" value="1.3"/>
++
+   <!-- Load user property definition overrides -->
+   <property file="build.properties"/>
+   <property file="${user.home}/build.properties"/>
+@@ -71,6 +74,8 @@
+     <javac srcdir="src/share" destdir="${jsp-api.build}/classes"
+            debug="${compile.debug}" deprecation="${compile.deprecation}"
+         optimize="${compile.optimize}"
++          source="${compile.source}"
++          target="${compile.target}"
+        classpath="${servlet-api.jar}" />
+ 
+     <!-- Associated property files -->
+@@ -113,6 +118,8 @@
+     <javac  srcdir="src/ant" destdir="${jsp-api.build}/ant"
+             debug="${compile.debug}" deprecation="${compile.deprecation}"
+             optimize="${compile.optimize}" 
++            source="${compile.source}"
++            target="${compile.target}"
+             classpath="${ant.home}/lib/ant.jar" />
+     <jar jarfile="${jsp-anttask.jar}"  basedir="${jsp-api.build}/ant"  />
+     <taskdef    name="txt2html" classname="task.Txt2Html"
+@@ -205,6 +212,8 @@
+              destdir="${jsp-api.build}/examples/WEB-INF/classes"
+              debug="${compile.debug}" deprecation="${compile.deprecation}"
+              optimize="${compile.optimize}"
++             source="${compile.source}"
++             target="${compile.target}"
+              excludes="**/CVS/**">
+       <classpath refid="examples.classpath" />
+     </javac>
+@@ -213,6 +222,8 @@
+              destdir="${jsp-api.build}/examples/plugin/applet"
+              debug="${compile.debug}" deprecation="${compile.deprecation}"
+              optimize="${compile.optimize}"
++             source="${compile.source}"
++             target="${compile.target}"
+              excludes="**/CVS/**">
+       <classpath refid="examples.classpath" />
+     </javac>
+--- apache-tomcat-5.5.23-src/servletapi/jsr154/build.xml~	2007-03-05 17:28:00.000000000 +0200
++++ apache-tomcat-5.5.23-src/servletapi/jsr154/build.xml	2007-12-07 21:49:34.840081313 +0200
+@@ -11,6 +11,8 @@
+   <property name="compile.debug"       value="true"/>
+   <property name="compile.deprecation" value="false"/>
+   <property name="compile.optimize"    value="true"/>
++  <property name="compile.source"      value="1.3"/>
++  <property name="compile.target"      value="1.3"/>
+   <property name="implementation.revision" value="public_draft"/>
+   <property name="servlet-api.build"    value="build"/>
+   <property name="servlet-api.dist"     value="dist"/>
+@@ -64,6 +66,8 @@
+     <!-- Java classes -->
+     <javac srcdir="src/share" destdir="${servlet-api.build}/classes"
+            debug="${compile.debug}" deprecation="${compile.deprecation}"
++          source="${compile.source}"
++          target="${compile.target}"
+         optimize="${compile.optimize}"/>
+ 
+     <!-- Associated property files -->
+@@ -111,6 +115,8 @@
+              destdir="${servlet-api.build}/examples/WEB-INF/classes"
+              debug="${compile.debug}" deprecation="${compile.deprecation}"
+              optimize="${compile.optimize}"
++             source="${compile.source}"
++             target="${compile.target}"
+              excludes="**/CVS/**">
+       <classpath refid="examples.classpath" />
+     </javac>
