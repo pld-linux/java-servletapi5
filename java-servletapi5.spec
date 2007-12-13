@@ -3,7 +3,7 @@ Summary:	Java servlet and JSP implementation classes
 Summary(pl.UTF-8):	Klasy z implementacją Java Servlet i JSP
 Name:		jakarta-servletapi5
 Version:	5.5.23
-Release:	2
+Release:	3
 License:	Apache
 Group:		Development/Languages/Java
 Source0:	http://www.apache.org/dist/tomcat/tomcat-5/v%{version}/src/apache-tomcat-%{version}-src.tar.gz
@@ -15,9 +15,10 @@ BuildRequires:	jdk >= 1.5
 BuildRequires:	jpackage-utils
 BuildRequires:	rpm-javaprov
 BuildRequires:	rpmbuild(macros) >= 1.300
+Requires:	jpackage-utils
 Provides:	jakarta-servletapi = %{version}
 Provides:	jsp
-Provides:	servlet
+Provides:	servlet = %{version}
 Provides:	servlet24
 Provides:	servlet5
 Provides:	servletapi5
@@ -53,13 +54,12 @@ cd apache-tomcat-%{version}-src
 %patch0 -p1
 
 %build
-cd apache-tomcat-%{version}-src/servletapi/jsr154
-%ant dist \
+cd apache-tomcat-%{version}-src/servletapi
+%ant -f jsr154/build.xml dist \
 	-Dservletapi.build=build \
 	-Dservletapi.dist=dist
 
-cd ../jsr152
-%ant dist \
+%ant -f jsr152/build.xml dist \
 	-Dservletapi.build=build \
 	-Dservletapi.dist=dist
 
@@ -70,13 +70,13 @@ install -d $RPM_BUILD_ROOT{%{_javadir},%{_javadocdir}/%{name}-%{version}}
 # JSP 2.0 and Servlet 2.4 classes
 install jsr152/dist/lib/jsp-api.jar $RPM_BUILD_ROOT%{_javadir}/jsp-api-%{version}.jar
 install jsr154/dist/lib/servlet-api.jar $RPM_BUILD_ROOT%{_javadir}/servlet-api-%{version}.jar
-ln -sf servlet-api-%{version}.jar $RPM_BUILD_ROOT%{_javadir}/servlet-api.jar
-ln -sf jsp-api-%{version}.jar $RPM_BUILD_ROOT%{_javadir}/jsp-api.jar
+ln -s servlet-api-%{version}.jar $RPM_BUILD_ROOT%{_javadir}/servlet-api.jar
+ln -s servlet-api-%{version}.jar $RPM_BUILD_ROOT%{_javadir}/servlet.jar
+ln -s jsp-api-%{version}.jar $RPM_BUILD_ROOT%{_javadir}/jsp-api.jar
 
 # not sure who expects what from which class
 # servletapi4 contained both servlet-api and jsp-api classes in it's jar
-ln -sf servlet-api-%{version}.jar $RPM_BUILD_ROOT%{_javadir}/servlet.jar
-ln -sf servlet-api-%{version}.jar $RPM_BUILD_ROOT%{_javadir}/servletapi5.jar
+ln -s servlet-api-%{version}.jar $RPM_BUILD_ROOT%{_javadir}/servletapi5.jar
 
 # javadoc
 install -d $RPM_BUILD_ROOT%{_javadocdir}/%{name}-%{version}
