@@ -2,12 +2,12 @@
 Summary:	Java servlet and JSP implementation classes
 Summary(pl.UTF-8):	Klasy z implementacją Java Servlet i JSP
 Name:		jakarta-servletapi5
-Version:	5.5.23
-Release:	3
+Version:	5.5.26
+Release:	1
 License:	Apache
 Group:		Development/Languages/Java
 Source0:	http://www.apache.org/dist/tomcat/tomcat-5/v%{version}/src/apache-tomcat-%{version}-src.tar.gz
-# Source0-md5:	362d1d8b15dc09882440dcab8c592dd7
+# Source0-md5:	642b6526354cb18c5b5d77ebef8109ae
 Patch0:		%{name}-target.patch
 URL:		http://tomcat.apache.org/
 BuildRequires:	ant
