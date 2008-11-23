@@ -1,28 +1,32 @@
+#
+# Conditional build:
+%bcond_without	javadoc		# don't build javadoc
+
 %include	/usr/lib/rpm/macros.java
 Summary:	Java servlet and JSP implementation classes
 Summary(pl.UTF-8):	Klasy z implementacją Java Servlet i JSP
-Name:		jakarta-servletapi5
+Name:		java-servletapi5
 Version:	5.5.26
 Release:	1
 License:	Apache
-Group:		Development/Languages/Java
+Group:		Libraries/Java
 Source0:	http://www.apache.org/dist/tomcat/tomcat-5/v%{version}/src/apache-tomcat-%{version}-src.tar.gz
 # Source0-md5:	642b6526354cb18c5b5d77ebef8109ae
-Patch0:		%{name}-target.patch
+Patch0:		jakarta-servletapi5-target.patch
 URL:		http://tomcat.apache.org/
 BuildRequires:	ant
-BuildRequires:	jdk >= 1.5
 BuildRequires:	jpackage-utils
 BuildRequires:	rpm-javaprov
 BuildRequires:	rpmbuild(macros) >= 1.300
 Requires:	jpackage-utils
-Provides:	jakarta-servletapi = %{version}
+Provides:	jakarta-servletapi5
 Provides:	jsp
 Provides:	servlet = %{version}
 Provides:	servlet24
 Provides:	servlet5
 Provides:	servletapi5
 Obsoletes:	jakarta-servletapi < 4
+Obsoletes:	jakarta-servletapi5
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -50,11 +54,10 @@ Dokumentacja do servletapi.
 
 %prep
 %setup -qc
-cd apache-tomcat-%{version}-src
-%patch0 -p1
+mv apache-tomcat-%{version}-src/servletapi/* .
+%patch0 -p2
 
 %build
-cd apache-tomcat-%{version}-src/servletapi
 %ant -f jsr154/build.xml dist \
 	-Dservletapi.build=build \
 	-Dservletapi.dist=dist
@@ -65,24 +68,26 @@ cd apache-tomcat-%{version}-src/servletapi
 
 %install
 rm -rf $RPM_BUILD_ROOT
-cd apache-tomcat-%{version}-src/servletapi
-install -d $RPM_BUILD_ROOT{%{_javadir},%{_javadocdir}/%{name}-%{version}}
+
 # JSP 2.0 and Servlet 2.4 classes
-install jsr152/dist/lib/jsp-api.jar $RPM_BUILD_ROOT%{_javadir}/jsp-api-%{version}.jar
-install jsr154/dist/lib/servlet-api.jar $RPM_BUILD_ROOT%{_javadir}/servlet-api-%{version}.jar
+install -d $RPM_BUILD_ROOT%{_javadir}
+cp -a jsr152/dist/lib/jsp-api.jar $RPM_BUILD_ROOT%{_javadir}/jsp-api-%{version}.jar
+cp -a jsr154/dist/lib/servlet-api.jar $RPM_BUILD_ROOT%{_javadir}/servlet-api-%{version}.jar
 ln -s servlet-api-%{version}.jar $RPM_BUILD_ROOT%{_javadir}/servlet-api.jar
 ln -s servlet-api-%{version}.jar $RPM_BUILD_ROOT%{_javadir}/servlet.jar
 ln -s jsp-api-%{version}.jar $RPM_BUILD_ROOT%{_javadir}/jsp-api.jar
 
 # not sure who expects what from which class
-# servletapi4 contained both servlet-api and jsp-api classes in it's jar
+# servletapi4 contained both servlet-api and jsp-api classes in it's jar, so we link to api jar (or drop?)
 ln -s servlet-api-%{version}.jar $RPM_BUILD_ROOT%{_javadir}/servletapi5.jar
 
 # javadoc
+%if %{with javadoc}
 install -d $RPM_BUILD_ROOT%{_javadocdir}/%{name}-%{version}
 cp -a jsr152/dist/docs/api $RPM_BUILD_ROOT%{_javadocdir}/%{name}-%{version}/jsp-api
 cp -a jsr154/dist/docs/api $RPM_BUILD_ROOT%{_javadocdir}/%{name}-%{version}/servlet-api
 ln -s %{name}-%{version} $RPM_BUILD_ROOT%{_javadocdir}/%{name} # ghost symlink
+%endif
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -94,7 +99,9 @@ ln -nfs %{name}-%{version} %{_javadocdir}/%{name}
 %defattr(644,root,root,755)
 %{_javadir}/*.jar
 
+%if %{with javadoc}
 %files javadoc
 %defattr(644,root,root,755)
 %{_javadocdir}/%{name}-%{version}
 %ghost %{_javadocdir}/%{name}
+%endif
