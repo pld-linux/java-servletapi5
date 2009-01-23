@@ -25,8 +25,8 @@ Provides:	servlet = %{version}
 Provides:	servlet24
 Provides:	servlet5
 Provides:	servletapi5
+Provides:	servletapi
 Obsoletes:	jakarta-servletapi < 4
-Obsoletes:	java-servletapi < 4
 Obsoletes:	jakarta-servletapi5
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
