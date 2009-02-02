@@ -15,6 +15,7 @@ Source0:	http://www.apache.org/dist/tomcat/tomcat-5/v%{version}/src/apache-tomca
 Patch0:		jakarta-servletapi5-target.patch
 URL:		http://tomcat.apache.org/
 BuildRequires:	ant
+BuildRequires:	java-gcj-compat-devel
 BuildRequires:	jpackage-utils
 BuildRequires:	rpm-javaprov
 BuildRequires:	rpmbuild(macros) >= 1.300
@@ -59,11 +60,14 @@ mv apache-tomcat-%{version}-src/servletapi/* .
 %patch0 -p2
 
 %build
+
 %ant -f jsr154/build.xml dist \
+	-Dbuild.compiler=gcj \
 	-Dservletapi.build=build \
 	-Dservletapi.dist=dist
 
 %ant -f jsr152/build.xml dist \
+	-Dbuild.compiler=gcj \
 	-Dservletapi.build=build \
 	-Dservletapi.dist=dist
 
