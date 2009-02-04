@@ -7,7 +7,7 @@ Summary:	Java servlet and JSP implementation classes
 Summary(pl.UTF-8):	Klasy z implementacją Java Servlet i JSP
 Name:		java-servletapi5
 Version:	5.5.27
-Release:	1
+Release:	2
 License:	Apache
 Group:		Libraries/Java
 Source0:	http://www.apache.org/dist/tomcat/tomcat-5/v%{version}/src/apache-tomcat-%{version}-src.tar.gz
@@ -25,8 +25,9 @@ Provides:	jsp
 Provides:	servlet = %{version}
 Provides:	servlet24
 Provides:	servlet5
-Provides:	servletapi5
 Provides:	servletapi
+Provides:	servletapi5
+Obsoletes:	classpathx_servlet
 Obsoletes:	jakarta-servletapi < 4
 Obsoletes:	jakarta-servletapi5
 BuildArch:	noarch
