@@ -1,13 +1,16 @@
+# TODO:
+# - shouldn't it be java-servletapi-2.4 ?
 #
 # Conditional build:
 %bcond_without	javadoc		# don't build javadoc
+%bcond_with	java_sun	# use java-sun
 
 %include	/usr/lib/rpm/macros.java
 Summary:	Java servlet and JSP implementation classes
 Summary(pl.UTF-8):	Klasy z implementacją Java Servlet i JSP
 Name:		java-servletapi5
 Version:	5.5.27
-Release:	2
+Release:	3
 License:	Apache
 Group:		Libraries/Java
 Source0:	http://www.apache.org/dist/tomcat/tomcat-5/v%{version}/src/apache-tomcat-%{version}-src.tar.gz
@@ -15,13 +18,16 @@ Source0:	http://www.apache.org/dist/tomcat/tomcat-5/v%{version}/src/apache-tomca
 Patch0:		jakarta-servletapi5-target.patch
 URL:		http://tomcat.apache.org/
 BuildRequires:	ant
-BuildRequires:	java-gcj-compat-devel
+%{!?with_java_sun:BuildRequires:	java-gcj-compat-devel}
+%{?with_java_sun:BuildRequires:	java-sun}
 BuildRequires:	jpackage-utils
 BuildRequires:	rpm-javaprov
 BuildRequires:	rpmbuild(macros) >= 1.300
 Requires:	jpackage-utils
 Provides:	jakarta-servletapi5
-Provides:	jsp
+Provides:	jsp = 2.0
+Provides:	servlet = 2.4
+# for compatibility with some packages. But it is not true:
 Provides:	servlet = %{version}
 Provides:	servlet24
 Provides:	servlet5
@@ -63,12 +69,12 @@ mv apache-tomcat-%{version}-src/servletapi/* .
 %build
 
 %ant -f jsr154/build.xml dist \
-	-Dbuild.compiler=gcj \
+	-Dbuild.compiler=extJavac \
 	-Dservletapi.build=build \
 	-Dservletapi.dist=dist
 
 %ant -f jsr152/build.xml dist \
-	-Dbuild.compiler=gcj \
+	-Dbuild.compiler=extJavac \
 	-Dservletapi.build=build \
 	-Dservletapi.dist=dist
 
