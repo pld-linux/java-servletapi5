@@ -6,12 +6,14 @@
 %bcond_with	java_sun	# use java-sun
 
 %include	/usr/lib/rpm/macros.java
+
+%define		srcname		servletapi5
 Summary:	Java servlet and JSP implementation classes
 Summary(pl.UTF-8):	Klasy z implementacją Java Servlet i JSP
 Name:		java-servletapi5
 Version:	5.5.27
-Release:	3
-License:	Apache
+Release:	4
+License:	Apache v2
 Group:		Libraries/Java
 Source0:	http://www.apache.org/dist/tomcat/tomcat-5/v%{version}/src/apache-tomcat-%{version}-src.tar.gz
 # Source0-md5:	eb3f196013550b9b1684e4ff18593a8e
@@ -31,7 +33,7 @@ Provides:	servlet = 2.4
 Provides:	servlet = %{version}
 Provides:	servlet24
 Provides:	servlet5
-Provides:	servletapi
+Provides:	servletapi = 2.4
 Provides:	servletapi5
 Obsoletes:	classpathx_servlet
 Obsoletes:	jakarta-servletapi < 4
@@ -96,16 +98,16 @@ ln -s servlet-api-%{version}.jar $RPM_BUILD_ROOT%{_javadir}/servletapi5.jar
 # javadoc
 %if %{with javadoc}
 install -d $RPM_BUILD_ROOT%{_javadocdir}/%{name}-%{version}
-cp -a jsr152/dist/docs/api $RPM_BUILD_ROOT%{_javadocdir}/%{name}-%{version}/jsp-api
-cp -a jsr154/dist/docs/api $RPM_BUILD_ROOT%{_javadocdir}/%{name}-%{version}/servlet-api
-ln -s %{name}-%{version} $RPM_BUILD_ROOT%{_javadocdir}/%{name} # ghost symlink
+cp -a jsr152/dist/docs/api $RPM_BUILD_ROOT%{_javadocdir}/%{srcname}-%{version}/jsp-api
+cp -a jsr154/dist/docs/api $RPM_BUILD_ROOT%{_javadocdir}/%{srcname}-%{version}/servlet-api
+ln -s %{srcname}-%{version} $RPM_BUILD_ROOT%{_javadocdir}/%{srcname} # ghost symlink
 %endif
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %post javadoc
-ln -nfs %{name}-%{version} %{_javadocdir}/%{name}
+ln -nfs %{srcname}-%{version} %{_javadocdir}/%{srcname}
 
 %files
 %defattr(644,root,root,755)
@@ -114,6 +116,6 @@ ln -nfs %{name}-%{version} %{_javadocdir}/%{name}
 %if %{with javadoc}
 %files javadoc
 %defattr(644,root,root,755)
-%{_javadocdir}/%{name}-%{version}
-%ghost %{_javadocdir}/%{name}
+%{_javadocdir}/%{srcname}-%{version}
+%ghost %{_javadocdir}/%{srcname}
 %endif
