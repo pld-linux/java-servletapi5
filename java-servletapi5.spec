@@ -7,6 +7,7 @@
 %bcond_without	java_sun	# build with gcj
 %else
 %bcond_with	java_sun	# use java-sun
+%endif
 
 %include	/usr/lib/rpm/macros.java
 
