@@ -3,6 +3,9 @@
 #
 # Conditional build:
 %bcond_without	javadoc		# don't build javadoc
+%if "%{pld_release}" == "ti"
+%bcond_without	java_sun	# build with gcj
+%else
 %bcond_with	java_sun	# use java-sun
 
 %include	/usr/lib/rpm/macros.java
