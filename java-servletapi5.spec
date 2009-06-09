@@ -16,12 +16,14 @@ Summary:	Java servlet and JSP implementation classes
 Summary(pl.UTF-8):	Klasy z implementacją Java Servlet i JSP
 Name:		java-servletapi5
 Version:	5.5.27
-Release:	5
+Release:	6
 License:	Apache v2
 Group:		Libraries/Java
 Source0:	http://www.apache.org/dist/tomcat/tomcat-5/v%{version}/src/apache-tomcat-%{version}-src.tar.gz
 # Source0-md5:	eb3f196013550b9b1684e4ff18593a8e
 Patch0:		jakarta-servletapi5-target.patch
+# This patch is applied in tomcat svn. Remove it while upgrading to 5.5.28.
+Patch1:		%{name}-CVE-2009-0781.patch
 URL:		http://tomcat.apache.org/
 BuildRequires:	ant
 %{!?with_java_sun:BuildRequires:	java-gcj-compat-devel}
@@ -72,6 +74,7 @@ Dokumentacja do servletapi.
 %setup -qc
 mv apache-tomcat-%{version}-src/servletapi/* .
 %patch0 -p2
+%patch1 -p1
 
 %build
 
