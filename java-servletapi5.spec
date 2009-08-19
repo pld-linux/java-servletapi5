@@ -1,5 +1,5 @@
 # TODO:
-# - shouldn't it be java-servletapi-2.4 ?
+# - fix all specs that requires servletapi5, servlet etc. They should require java(Servlet)
 #
 # Conditional build:
 %bcond_without	javadoc		# don't build javadoc
@@ -9,21 +9,22 @@
 %bcond_with	java_sun	# use java-sun
 %endif
 
+%define		jspapiver	2.0
+%define		servletapiver	2.4
+
 %include	/usr/lib/rpm/macros.java
 
 %define		srcname		servletapi5
 Summary:	Java servlet and JSP implementation classes
 Summary(pl.UTF-8):	Klasy z implementacją Java Servlet i JSP
 Name:		java-servletapi5
-Version:	5.5.27
-Release:	6
+Version:	5.5.28
+Release:	1
 License:	Apache v2
 Group:		Libraries/Java
 Source0:	http://www.apache.org/dist/tomcat/tomcat-5/v%{version}/src/apache-tomcat-%{version}-src.tar.gz
-# Source0-md5:	eb3f196013550b9b1684e4ff18593a8e
+# Source0-md5:	73cd758f32dff07e7d26817b50d3448d
 Patch0:		jakarta-servletapi5-target.patch
-# This patch is applied in tomcat svn. Remove it while upgrading to 5.5.28.
-Patch1:		%{name}-CVE-2009-0781.patch
 URL:		http://tomcat.apache.org/
 BuildRequires:	ant
 %{!?with_java_sun:BuildRequires:	java-gcj-compat-devel}
@@ -33,14 +34,8 @@ BuildRequires:	rpm-javaprov
 BuildRequires:	rpmbuild(macros) >= 1.300
 Requires:	jpackage-utils
 Provides:	jakarta-servletapi5
-Provides:	jsp = 2.0
-Provides:	servlet = 2.4
-# for compatibility with some packages. But it is not true:
-Provides:	servlet = %{version}
-Provides:	servlet24
-Provides:	servlet5
-Provides:	servletapi = 2.4
-Provides:	servletapi5
+Provides:	java(JSP) = %{jspapiver}
+Provides:	java(Servlet) = %{servletapiver}
 Obsoletes:	classpathx_servlet
 Obsoletes:	jakarta-servletapi
 Obsoletes:	jakarta-servletapi5
@@ -73,8 +68,7 @@ Dokumentacja do servletapi.
 %prep
 %setup -qc
 mv apache-tomcat-%{version}-src/servletapi/* .
-%patch0 -p2
-%patch1 -p1
+%patch0 -p0
 
 %build
 
