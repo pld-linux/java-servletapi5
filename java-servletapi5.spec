@@ -33,7 +33,6 @@ BuildRequires:	jpackage-utils
 BuildRequires:	rpm-javaprov
 BuildRequires:	rpmbuild(macros) >= 1.300
 Requires:	jpackage-utils
-Provides:	jakarta-servletapi5
 Provides:	java(JSP) = %{jspapiver}
 Provides:	java(Servlet) = %{servletapiver}
 Obsoletes:	classpathx_servlet
@@ -97,10 +96,6 @@ ln -s servlet-api-%{version}.jar $RPM_BUILD_ROOT%{_javadir}/servlet-api.jar
 ln -s servlet-api-%{version}.jar $RPM_BUILD_ROOT%{_javadir}/servlet.jar
 ln -s jsp-api-%{version}.jar $RPM_BUILD_ROOT%{_javadir}/jsp-api.jar
 %endif
-
-# not sure who expects what from which class
-# servletapi4 contained both servlet-api and jsp-api classes in it's jar, so we link to api jar (or drop?)
-ln -s servlet-api-%{version}.jar $RPM_BUILD_ROOT%{_javadir}/servletapi5.jar
 
 # javadoc
 %if %{with javadoc}
