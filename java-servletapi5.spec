@@ -90,8 +90,8 @@ cp -a jsr152/dist/lib/jsp-api.jar $RPM_BUILD_ROOT%{_javadir}/jsp-api-%{jspapiver
 cp -a jsr154/dist/lib/servlet-api.jar $RPM_BUILD_ROOT%{_javadir}/servlet-api-%{servletapiver}.jar
 
 # Don't install these files in distros where tomcat6 is available, to allow it
-# to coexist with java-servletapi-6.0
-%if "%{pld_release}" == "ti"
+# to co-exist with java-servletapi-6.0
+%if "%{pld_release}" != "th"
 ln -s servlet-api-%{version}.jar $RPM_BUILD_ROOT%{_javadir}/servlet-api.jar
 ln -s servlet-api-%{version}.jar $RPM_BUILD_ROOT%{_javadir}/servlet.jar
 ln -s jsp-api-%{version}.jar $RPM_BUILD_ROOT%{_javadir}/jsp-api.jar
