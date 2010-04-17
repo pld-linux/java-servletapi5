@@ -3,11 +3,6 @@
 #
 # Conditional build:
 %bcond_without	javadoc		# don't build javadoc
-%if "%{pld_release}" == "ti"
-%bcond_without	java_sun	# build with gcj
-%else
-%bcond_with	java_sun	# use java-sun
-%endif
 
 %define		jspapiver	2.0
 %define		servletapiver	2.4
@@ -27,11 +22,9 @@ Source0:	http://www.apache.org/dist/tomcat/tomcat-5/v%{version}/src/apache-tomca
 Patch0:		jakarta-servletapi5-target.patch
 URL:		http://tomcat.apache.org/
 BuildRequires:	ant
-%{!?with_java_sun:BuildRequires:	java-gcj-compat-devel}
-%{?with_java_sun:BuildRequires:	java-sun}
+BuildRequires:	jdk
 BuildRequires:	jpackage-utils
 BuildRequires:	rpm-javaprov
-BuildRequires:	rpmbuild(macros) >= 1.300
 Requires:	jpackage-utils
 Provides:	java(JSP) = %{jspapiver}
 Provides:	java(Servlet) = %{servletapiver}
