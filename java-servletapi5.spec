@@ -9,7 +9,6 @@
 %define		jspapiver	2.0
 %define		servletapiver	2.4
 
-%include	/usr/lib/rpm/macros.java
 
 %define		srcname		servletapi5
 Summary:	Java Servlet 2.4 and JSP 2.0 implementation classes
